@@ -365,7 +365,7 @@ func (d *Driver) waitForSetupTransactions() {
 		}
 
 		if t == "" {
-			if noActiveCount == maxNoActiveCount {
+			if waitnoActiveCount == maxNoActiveCount {
 				break
 			}
 			noActiveCount++
@@ -394,7 +394,7 @@ func (d *Driver) Create() error {
 	d.Id = id
 	d.getIp()
 	d.waitForStart()
-	d.waitForSetupTransactions()
+	// d.waitForSetupTransactions()
 	ssh.WaitForTCP(d.IPAddress + ":22")
 
 	cmd, err := drivers.GetSSHCommandFromDriver(d, "sudo apt-get update && DEBIAN_FRONTEND=noninteractive sudo apt-get install -yq curl")
